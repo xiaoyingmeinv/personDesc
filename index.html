@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>小英的主页</title>
+    <script type="text/javascript" src="asset/js/include.js"></script>
+    <script type="text/javascript" src="asset/js/echarts.min.js"></script>
+
+    
+    <style type="text/css">
+        
+      
+    </style>
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+               $(".slider-container").slider();
+                       
+               var skillTitle = "我的超酷技能";
+               var skillData = [
+                   {
+                       name:"freeng",
+                       value:"了解",
+                       link:"http://ghmagical.com/freeng/releases/version/v0.2.0/"
+                   },
+                   {
+                       name:"angular4组件api",
+                       value:"了解",
+                       link:"https://material.angular.io/components/autocomplete/api"
+                   },
+                   {
+                       name:"ngx-bootstrap",
+                       value:"了解",
+                       link:"https://valor-software.com/ngx-bootstrap/#/getting-started"
+                   },
+                   {
+                       name:"strophe.js",
+                       value:"了解",
+                       link:"http://strophe.im/strophejs/doc/1.2.14/files/strophe-js.html"
+                   },
+                   {
+                       name:"http协议",
+                       value:"了解",
+                       link:"http://www.runoob.com/http/http-tutorial.html"
+                   },
+                   {
+                       name:"web存储",
+                       value:"了解",
+                       link:"http://www.runoob.com/html/html5-webstorage.html"
+                   },
+                   {
+                       name:"JavaScript 标准参考教程（alpha）",
+                       value:"了解",
+                       link:"http://javascript.ruanyifeng.com/#stdlib"
+                   },
+                   {
+                       name:"npm私服",
+                       value:"了解",
+                       link:"http://blog.csdn.net/u010130282/article/details/51892625"
+                   },
+                   {
+                       name:"响应式流Rxjs",
+                       value:"了解",
+                       link:"http://blog.csdn.net/u010130282/article/details/51892625"
+                   },
+                   {
+                       name:"rxjs参考手册",
+                       value:"了解",
+                       link:"http://reactivex.io/rxjs/manual/index.html"
+                   },
+                   {
+                       name:"什么是rxjs",
+                       value:"了解",
+                       link:"http://xgrommx.github.io/rx-book/why_rx.html"
+                   },
+                   {
+                       name:"linux",
+                       value:"了解",
+                       link:"http://cn.linux.vbird.org/"
+                   }
+               ];
+               
+               var meObj = {
+                       name:"小英",
+                       value:"精通",
+                       category:1,
+                       symbol:"image://asset/images/personal/me.png",
+                       symbolSize:120
+                   };
+                   
+               
+               var linksData = [];
+               for(var i  = 0; i < skillData.length; i++){
+                   var targetObj = skillData[i];
+                   linksData.push({
+                       source:meObj.name,
+                       target:targetObj.name,
+                       label:{
+                           normal:{
+                               show:true
+                           }
+                       },
+                       symbol:["", "triangle"]
+                   });
+               }
+               
+               skillData.unshift(meObj);//最后加入
+               
+               var $homePersonalContainer = $("#homePersonalContainer");
+               
+               
+               var echartsInstance = echarts.init($homePersonalContainer.get(0));
+               //echartsInstance.showLoading();
+               echartsInstance.setOption({
+                   title:{
+                       text:skillTitle,
+                       textStyle:{
+                           color:"#fff"
+                       }
+                   },
+                   series:[{
+                       type:"graph",
+                       name:"实用技能",
+                       layout:"force",
+                       force:{
+                           repulsion:300,
+                           edgeLength:240
+                       },
+                       draggable:true,
+                       symbol:"image://asset/images/personal/book.png",
+                       symbolSize:80,
+                       label:{
+                           normal:{
+                               show:true    
+                           }
+                       },
+                       categories:[{
+                           name:"skill"
+                       },{
+                           name:"persoanl"
+                       }],
+                       data:skillData,
+                       links:linksData
+                   }]
+               });
+               
+               echartsInstance.on("click", function(params){
+                   var data = params.data;
+                   if(data.link != null){
+                       window.open(data.link);
+                   }
+               });
+               
+        });
+
+    </script>
+</head>
+<body>
+
+   <script type="text/javascript">util.include("header.html");</script>
+
+    <div class="container home-container">
+        
+        <div class="slider-limit-wrapper">
+            <!-- 图片滑动 -->
+            <div class="slider-container">
+                <a href="javascript:;" title="我心所向，无限风光">
+                    <img src="asset/images/banner/banner1.jpg"  class="img-responsive" alt="田园风光" />
+                </a>
+                <a href="javascript:;" title="养猪也是一门技术">
+                    <img src="asset/images/banner/banner2.jpg"  class="img-responsive" alt="如何养猪" />
+                </a>
+                 <a href="javascript:;" title="最大的梦想就是吃和睡">
+                    <img src="asset/images/banner/banner3.jpg"  class="img-responsive" alt="如何养猪" />
+                </a>
+            </div>
+
+        </div>
+
+        
+        <div class="ying-panel">
+            <div class="ying-panel-body">
+                
+                 <div class="home-personal">
+                    <div class="home-personal-relative" id="homePersonalContainer">
+                        
+                    </div>    
+                </div>
+                
+            </div>
+            
+        </div>
+         
+
+    </div>
+    
+    
+    <script type="text/javascript">util.include("footer.html")</script>
+
+
+</body>
+</html>
